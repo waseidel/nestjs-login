@@ -8,16 +8,16 @@ export type UserDocument = User & Document;
 @ObjectType()
 export class User {
   @Prop()
-  @Field()
-  name: string;
+  @Field({ nullable: true })
+  name?: string;
 
   @Prop({ unique: true })
   @Field()
   email: string;
 
   @Prop()
-  @Field()
-  password: string;
+  @Field({ nullable: true })
+  password?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

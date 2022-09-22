@@ -6,6 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CasosModule } from './casos/casos.module';
+import { JerarquiasModule } from './jerarquias/jerarquias.module';
+import { BusesModule } from './buses/buses.module';
+import { LineasModule } from './lineas/lineas.module';
 
 @Module({
   imports: [
@@ -21,6 +25,10 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    CasosModule,
+    JerarquiasModule,
+    BusesModule,
+    LineasModule,
   ],
 })
 export class AppModule {}
