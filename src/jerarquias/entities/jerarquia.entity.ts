@@ -1,23 +1,24 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { Caso } from '../../casos/entities/caso.entity';
 
-@Schema()
+export type JerarquiaDocument = Jerarquia & Document;
+
+@Schema({ timestamps: true })
 @ObjectType()
 export class Jerarquia {
-  @Prop()
-  @Field(() => ID, { nullable: true })
-  _id?: string;
-
   @Prop()
   @Field()
   nombre: string;
 
-  @Prop()
+  @Prop({ required: false })
   @Field(() => Boolean, { nullable: true, defaultValue: false })
   afecta_op?: Boolean;
 
-  @Prop()
+  @Prop({ required: false })
   @Field(() => [Caso], { nullable: true })
   casos?: Caso[];
 }
+
+export const JerarquiaSchema = SchemaFactory.createForClass(Jerarquia);

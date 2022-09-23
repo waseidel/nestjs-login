@@ -1,11 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateLineaInput } from './dto/create-linea.input';
 import { UpdateLineaInput } from './dto/update-linea.input';
+import { Linea, LineaDocument } from './entities/linea.entity';
 
 @Injectable()
 export class LineasService {
+  constructor(
+    @InjectModel(Linea.name) private lineaModel: Model<LineaDocument>,
+  ) {}
   create(createLineaInput: CreateLineaInput) {
-    return 'This action adds a new linea';
+    const createdLinea = new this.lineaModel(createLineaInput);
+    return createdLinea.save();
   }
 
   findAll() {

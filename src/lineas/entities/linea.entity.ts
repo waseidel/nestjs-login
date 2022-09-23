@@ -1,19 +1,24 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { Caso } from '../../casos/entities/caso.entity';
+
+export type LineaDocument = Linea & Document;
 
 @Schema({ timestamps: true })
 @ObjectType()
 export class Linea {
   @Prop()
-  @Field(() => ID, { nullable: true })
-  id?: string;
+  @Field()
+  nombre: string;
 
   @Prop()
   @Field()
-  nombre: string;
+  tipologia: string;
 
   @Prop()
   @Field(() => [Caso], { nullable: true })
   casos?: Caso[];
 }
+
+export const LineaSchema = SchemaFactory.createForClass(Linea);
