@@ -7,5 +7,6 @@ import { Bus, BusSchema } from './entities/bus.entity';
 @Module({
   imports: [MongooseModule.forFeature([{ name: Bus.name, schema: BusSchema }])],
   providers: [BusesResolver, BusesService],
+  exports: [BusesService],
 })
 export class BusesModule {}

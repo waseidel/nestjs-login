@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateLineaInput } from './dto/create-linea.input';
 import { UpdateLineaInput } from './dto/update-linea.input';
 import { Linea, LineaDocument } from './entities/linea.entity';
@@ -10,6 +10,7 @@ export class LineasService {
   constructor(
     @InjectModel(Linea.name) private lineaModel: Model<LineaDocument>,
   ) {}
+
   create(createLineaInput: CreateLineaInput) {
     const createdLinea = new this.lineaModel(createLineaInput);
     return createdLinea.save();
@@ -21,6 +22,10 @@ export class LineasService {
 
   findOne(id: number) {
     return `This action returns a #${id} linea`;
+  }
+
+  async findById(_id: Linea) {
+    return await this.lineaModel.findOne(_id);
   }
 
   update(id: number, updateLineaInput: UpdateLineaInput) {

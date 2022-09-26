@@ -18,6 +18,10 @@ export class UsersService {
     return this.userModel.find();
   }
 
+  async findById(id: User): Promise<User | undefined> {
+    return await this.userModel.findById(id);
+  }
+
   async getUser(email: string): Promise<User | undefined> {
     return await this.userModel.findOne({ email: email });
   }

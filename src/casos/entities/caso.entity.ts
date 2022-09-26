@@ -1,30 +1,21 @@
-import {
-  Field,
-  GraphQLISODateTime,
-  ObjectType,
-  registerEnumType,
-} from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+
+import { Tipo } from '../../types/casos.types';
 import { Bus } from '../../buses/entities/bus.entity';
 import { Jerarquia } from '../../jerarquias/entities/jerarquia.entity';
 import { Linea } from '../../lineas/entities/linea.entity';
 import { User } from '../../users/entities/user.entity';
-
-enum Tipo {
-  INCIDENTE,
-  SALIDA,
-  INGRESO,
-}
-
-registerEnumType(Tipo, {
-  name: 'Tipo',
-});
 
 export type CasoDocument = Caso & Document;
 
 @Schema({ timestamps: true })
 @ObjectType()
 export class Caso {
+  @Field(() => ID, { nullable: true })
+  _id: mongoose.Schema.Types.ObjectId;
+
   @Prop()
   @Field()
   caso: string;
@@ -37,17 +28,17 @@ export class Caso {
   @Field(() => Tipo, { nullable: true })
   tipo?: Tipo;
 
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Jerarquia.name })
   @Field(() => Jerarquia, { nullable: true })
   jerarquia?: Jerarquia;
 
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Bus.name })
   @Field(() => Bus, { nullable: true })
   bus?: Bus;
 
   tarea: string;
 
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Linea.name })
   @Field(() => Linea, { nullable: true })
   linea?: Linea;
 
@@ -59,9 +50,9 @@ export class Caso {
   @Field()
   parada: string;
 
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
   @Field(() => User, { nullable: true })
-  usuario?: User;
+  user?: User;
 }
 
 export const CasoSchema = SchemaFactory.createForClass(Caso);

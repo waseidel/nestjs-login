@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateJerarquiaInput } from './dto/create-jerarquia.input';
 import { UpdateJerarquiaInput } from './dto/update-jerarquia.input';
 import { Jerarquia, JerarquiaDocument } from './entities/jerarquia.entity';
@@ -20,11 +20,18 @@ export class JerarquiasService {
     return `This action returns all jerarquias`;
   }
 
-  findOne(id: number) {
+  findOne(id: mongoose.Schema.Types.ObjectId) {
     return `This action returns a #${id} jerarquia`;
   }
 
-  update(id: number, updateJerarquiaInput: UpdateJerarquiaInput) {
+  async findById(_id: Jerarquia) {
+    return await this.jerarquiaModel.findById(_id);
+  }
+
+  update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateJerarquiaInput: UpdateJerarquiaInput,
+  ) {
     return `This action updates a #${id} jerarquia`;
   }
 

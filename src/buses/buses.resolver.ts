@@ -1,10 +1,10 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { BusesService } from './buses.service';
 import { Bus } from './entities/bus.entity';
 import { CreateBusInput } from './dto/create-bus.input';
 import { UpdateBusInput } from './dto/update-bus.input';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Resolver(() => Bus)
 export class BusesResolver {
@@ -22,7 +22,7 @@ export class BusesResolver {
   }
 
   @Query(() => Bus, { name: 'bus' })
-  findOne(@Args('mc', { type: () => Int }) mc: string) {
+  findOne(@Args('mc', { type: () => ID }) mc: string) {
     return this.busesService.findOne(mc);
   }
 

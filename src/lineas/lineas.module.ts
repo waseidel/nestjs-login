@@ -9,5 +9,6 @@ import { Linea, LineaSchema } from './entities/linea.entity';
     MongooseModule.forFeature([{ name: Linea.name, schema: LineaSchema }]),
   ],
   providers: [LineasResolver, LineasService],
+  exports: [LineasService],
 })
 export class LineasModule {}

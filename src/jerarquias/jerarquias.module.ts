@@ -11,5 +11,6 @@ import { Jerarquia, JerarquiaSchema } from './entities/jerarquia.entity';
     ]),
   ],
   providers: [JerarquiasResolver, JerarquiasService],
+  exports: [JerarquiasService]
 })
 export class JerarquiasModule {}

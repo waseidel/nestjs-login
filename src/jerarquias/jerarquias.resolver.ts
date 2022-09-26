@@ -1,15 +1,18 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { JerarquiasService } from './jerarquias.service';
 import { Jerarquia } from './entities/jerarquia.entity';
 import { CreateJerarquiaInput } from './dto/create-jerarquia.input';
 import { UpdateJerarquiaInput } from './dto/update-jerarquia.input';
+import mongoose from 'mongoose';
 
 @Resolver(() => Jerarquia)
 export class JerarquiasResolver {
   constructor(private readonly jerarquiasService: JerarquiasService) {}
 
   @Mutation(() => Jerarquia)
-  createJerarquia(@Args('createJerarquiaInput') createJerarquiaInput: CreateJerarquiaInput) {
+  createJerarquia(
+    @Args('createJerarquiaInput') createJerarquiaInput: CreateJerarquiaInput,
+  ) {
     return this.jerarquiasService.create(createJerarquiaInput);
   }
 
@@ -19,13 +22,18 @@ export class JerarquiasResolver {
   }
 
   @Query(() => Jerarquia, { name: 'jerarquia' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: mongoose.Schema.Types.ObjectId) {
     return this.jerarquiasService.findOne(id);
   }
 
   @Mutation(() => Jerarquia)
-  updateJerarquia(@Args('updateJerarquiaInput') updateJerarquiaInput: UpdateJerarquiaInput) {
-    return this.jerarquiasService.update(updateJerarquiaInput.id, updateJerarquiaInput);
+  updateJerarquia(
+    @Args('updateJerarquiaInput') updateJerarquiaInput: UpdateJerarquiaInput,
+  ) {
+    return this.jerarquiasService.update(
+      updateJerarquiaInput.id,
+      updateJerarquiaInput,
+    );
   }
 
   @Mutation(() => Jerarquia)

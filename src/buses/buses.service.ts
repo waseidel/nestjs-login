@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateBusInput } from './dto/create-bus.input';
 import { UpdateBusInput } from './dto/update-bus.input';
 import { Bus, BusDocument } from './entities/bus.entity';
@@ -21,6 +21,10 @@ export class BusesService {
 
   findOne(mc: string) {
     return `This action returns a #${mc} bus`;
+  }
+
+  async findById(_id: Bus) {
+    return await this.busModel.findById(_id);
   }
 
   update(id: number, updateBusInput: UpdateBusInput) {

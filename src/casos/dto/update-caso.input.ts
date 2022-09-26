@@ -1,8 +1,9 @@
 import { CreateCasoInput } from './create-caso.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
+import mongoose from 'mongoose';
 
 @InputType()
 export class UpdateCasoInput extends PartialType(CreateCasoInput) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => ID)
+  _id: mongoose.Schema.Types.ObjectId;
 }
