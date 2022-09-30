@@ -4,7 +4,7 @@ import mongoose, { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 @ObjectType()
 export class User {
   @Field(() => ID, { nullable: true })

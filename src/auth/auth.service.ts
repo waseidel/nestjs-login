@@ -32,7 +32,12 @@ export class AuthService {
 
   async login(loginUserInput: LoginUserInput) {
     const user = await this.usersService.getUser(loginUserInput.email);
-    const token = this.jwtService.sign({ sub: user._id, email: user.email });
+
+    const token = this.jwtService.sign({
+      sub: user._id,
+      email: user.email
+    });
+
     return {
       token,
       user,
@@ -49,15 +54,16 @@ export class AuthService {
       throw new UserInputError('Las contraseñas no coinciden');
     }
 
-    const { confirmPassword, ...createUser } = signUpInput;
-    const hashPassword = await bcrypt.hash(createUser.password, 10);
+    const { confirmPassword, password, ...createUser } = signUpInput;
+    const hashPassword = await bcrypt.hash(password, 10);
+
     const newUser = await this.usersService.create({
       ...createUser,
       password: hashPassword,
     });
 
     const token = this.jwtService.sign({
-      sub: user._id,
+      sub: newUser._id,
       email: newUser.email,
     });
 

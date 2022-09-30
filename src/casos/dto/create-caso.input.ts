@@ -1,5 +1,5 @@
 import { InputType, Field, GraphQLISODateTime } from '@nestjs/graphql';
-import { Tipo } from '../../types/casos.types';
+import { Tipo } from '../types/casos.types';
 
 @InputType()
 export class CreateCasoInput {

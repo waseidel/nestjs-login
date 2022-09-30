@@ -1,0 +1,42 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  nestjs:
+    container_name: nestjs
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always 
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    volumes:
+      - mongo_disk:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    container_name: mongo_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_disk:

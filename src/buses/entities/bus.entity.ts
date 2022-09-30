@@ -6,7 +6,7 @@ export type BusDocument = Bus & Document;
 
 @Schema({ timestamps: true })
 @ObjectType()
-export class Bus {
+export class  Bus {
   @Field(() => ID, { nullable: true })
   _id: mongoose.Schema.Types.ObjectId;
 

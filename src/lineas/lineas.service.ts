@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
+
 import { CreateLineaInput } from './dto/create-linea.input';
 import { UpdateLineaInput } from './dto/update-linea.input';
 import { Linea, LineaDocument } from './entities/linea.entity';
@@ -16,16 +17,16 @@ export class LineasService {
     return createdLinea.save();
   }
 
-  findAll() {
-    return `This action returns all lineas`;
+  async findAll(): Promise<Linea[] | undefined> {
+    return await this.lineaModel.find({})
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} linea`;
+  async findOne(id: number): Promise<Linea | undefined> {
+    return await this.lineaModel.findById(id);
   }
 
-  async findById(_id: Linea) {
-    return await this.lineaModel.findOne(_id);
+  async findById(linea: Linea): Promise<Linea[] | undefined>{
+    return await this.lineaModel.findOne(linea);
   }
 
   update(id: number, updateLineaInput: UpdateLineaInput) {

@@ -11,10 +11,11 @@ export class UsersService {
 
   async create(createUser: CreateUser): Promise<User> {
     const createdUser = new this.userModel(createUser);
-    return createdUser.save();
+    const savedUser = await createdUser.save();
+    return savedUser;
   }
 
-  async findAll(): Promise<UserResponse[]> {
+  async findAll(): Promise<UserResponse[] | undefined> {
     return this.userModel.find();
   }
 

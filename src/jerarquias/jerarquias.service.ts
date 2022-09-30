@@ -4,6 +4,7 @@ import mongoose, { Model } from 'mongoose';
 import { CreateJerarquiaInput } from './dto/create-jerarquia.input';
 import { UpdateJerarquiaInput } from './dto/update-jerarquia.input';
 import { Jerarquia, JerarquiaDocument } from './entities/jerarquia.entity';
+import { JerarquiaResponse } from './dto/jerarquia.dto';
 
 @Injectable()
 export class JerarquiasService {
@@ -16,12 +17,12 @@ export class JerarquiasService {
     return createdJerarquia.save();
   }
 
-  findAll() {
-    return `This action returns all jerarquias`;
+  async findAll(): Promise<JerarquiaResponse[] | undefined> {
+    return await this.jerarquiaModel.find({})
   }
 
-  findOne(id: mongoose.Schema.Types.ObjectId) {
-    return `This action returns a #${id} jerarquia`;
+  async findOne(id: mongoose.Schema.Types.ObjectId): Promise<Jerarquia | undefined> {
+    return await this.jerarquiaModel.findById(id);
   }
 
   async findById(_id: Jerarquia) {

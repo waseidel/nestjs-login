@@ -23,12 +23,12 @@ export class LineasResolver {
     return this.lineasService.findOne(id);
   }
 
-  @Mutation(() => Linea)
+  @Mutation(() => Linea, {name: 'updateLinea'})
   updateLinea(@Args('updateLineaInput') updateLineaInput: UpdateLineaInput) {
-    return this.lineasService.update(updateLineaInput.id, updateLineaInput);
+    return this.lineasService.update(updateLineaInput._id, updateLineaInput);
   }
 
-  @Mutation(() => Linea)
+  @Mutation(() => Linea, {name: 'removeLinea'})
   removeLinea(@Args('id', { type: () => Int }) id: number) {
     return this.lineasService.remove(id);
   }

@@ -2,7 +2,7 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
-import { Tipo } from '../../types/casos.types';
+import { Tipo } from '../types/casos.types';
 import { Bus } from '../../buses/entities/bus.entity';
 import { Jerarquia } from '../../jerarquias/entities/jerarquia.entity';
 import { Linea } from '../../lineas/entities/linea.entity';

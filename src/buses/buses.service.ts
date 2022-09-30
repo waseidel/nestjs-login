@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { CreateBusInput } from './dto/create-bus.input';
 import { UpdateBusInput } from './dto/update-bus.input';
 import { Bus, BusDocument } from './entities/bus.entity';
@@ -15,8 +15,8 @@ export class BusesService {
     return bus.save();
   }
 
-  findAll() {
-    return `This action returns all buses`;
+  async findAll(): Promise<Bus[] | undefined> {
+    return await this.busModel.find({});
   }
 
   findOne(mc: string) {
