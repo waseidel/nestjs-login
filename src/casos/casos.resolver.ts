@@ -29,7 +29,7 @@ export class CasosResolver {
     private readonly busesService: BusesService,
     private readonly lineasService: LineasService,
     private readonly usersService: UsersService,
-  ) { }
+  ) {}
 
   @Mutation(() => Caso)
   @UseGuards(JwtAuthGuard)
