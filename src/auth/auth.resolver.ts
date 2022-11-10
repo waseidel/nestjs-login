@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { LoginUserInput } from './dto/login-user.input';
 import { LoginResponse } from './dto/login.response';
@@ -19,5 +19,12 @@ export class AuthResolver {
   @Mutation(() => LoginResponse)
   signUp(@Args('signUpInput') signUpInput: SignUpInput) {
     return this.authService.signUp(signUpInput);
+  }
+
+  @Query(() => LoginResponse)
+  isLoggedIn(@Args('token') token: string) {
+    const response = this.authService.isLoggedIn(token);
+    console.log({ ...response });
+    return { ...response };
   }
 }

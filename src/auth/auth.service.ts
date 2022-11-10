@@ -44,6 +44,22 @@ export class AuthService {
     };
   }
 
+  async isLoggedIn(token: string) {
+    const isValidToken = this.jwtService.verify(token);
+    const user = await this.usersService.getUser(isValidToken.email);
+    const updatedToken = this.jwtService.sign({
+      sub: user._id,
+      email: user.email,
+    });
+    const response = {
+      token: updatedToken,
+      user,
+    };
+    console.log({ ...response });
+
+    return response;
+  }
+
   async signUp(signUpInput: SignUpInput) {
     const user = await this.usersService.getUser(signUpInput.email);
     if (user) {
